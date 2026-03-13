@@ -5,7 +5,7 @@
 
 <style>
 body{
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     text-align:center;
     margin-top:100px;
 }
@@ -20,10 +20,11 @@ body{
 .code{
     width:50px;
     height:50px;
-    text-align:center;
     font-size:24px;
+    text-align:center;
 }
 </style>
+
 </head>
 
 <body>
@@ -31,42 +32,52 @@ body{
 <h1 id="verification_heading">Verify Your Account</h1>
 
 <p id="verification_subtext">
-Enter the 6 digit OTP sent to your phone.
+Enter the 6 digit OTP sent to your registered mobile number.
 </p>
 
 <div class="code-container">
-    <input type="text" maxlength="1" class="code">
-    <input type="text" maxlength="1" class="code">
-    <input type="text" maxlength="1" class="code">
-    <input type="text" maxlength="1" class="code">
-    <input type="text" maxlength="1" class="code">
-    <input type="text" maxlength="1" class="code">
+
+<input type="text" class="code" maxlength="1">
+<input type="text" class="code" maxlength="1">
+<input type="text" class="code" maxlength="1">
+<input type="text" class="code" maxlength="1">
+<input type="text" class="code" maxlength="1">
+<input type="text" class="code" maxlength="1">
+
 </div>
 
 <script>
 
-let codes = document.querySelectorAll(".code");
+const codes = document.querySelectorAll(".code");
 
-for(let i = 0; i < codes.length; i++){
+codes[0].focus();
 
-    codes[i].addEventListener("keyup", function(e){
+codes.forEach((code, index) => {
 
-        // typing forward
-        if(this.value.length === 1 && i < codes.length-1){
-            codes[i+1].select();   // move cursor to next
-        }
+    code.addEventListener("input", (e) => {
 
-        // backspace behavior
-        if(e.key === "Backspace" && i > 0 && this.value === ""){
-            codes[i-1].select();
+        if(e.target.value.length === 1 && index < codes.length-1){
+            codes[index+1].focus();
         }
 
     });
 
-}
+    code.addEventListener("keydown", (e) => {
+
+        if(e.key === "Backspace"){
+
+            if(code.value === "" && index > 0){
+                codes[index-1].focus();
+                codes[index-1].value = "";
+            }
+
+        }
+
+    });
+
+});
 
 </script>
 
 </body>
 </html>
-
