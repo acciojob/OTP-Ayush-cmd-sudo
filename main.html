@@ -1,16 +1,72 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-	<link rel="stylesheet" href="styles.css">
+<title>OTP Verification</title>
+
+<style>
+body{
+    font-family: Arial;
+    text-align:center;
+    margin-top:100px;
+}
+
+.code-container{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
+}
+
+.code{
+    width:50px;
+    height:50px;
+    text-align:center;
+    font-size:24px;
+}
+</style>
 </head>
 
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+
+<h1 id="verification_heading">Verify Your Account</h1>
+
+<p id="verification_subtext">
+Enter the 6 digit OTP sent to your phone.
+</p>
+
+<div class="code-container">
+    <input type="text" maxlength="1" class="code">
+    <input type="text" maxlength="1" class="code">
+    <input type="text" maxlength="1" class="code">
+    <input type="text" maxlength="1" class="code">
+    <input type="text" maxlength="1" class="code">
+    <input type="text" maxlength="1" class="code">
+</div>
+
+<script>
+
+let codes = document.querySelectorAll(".code");
+
+for(let i = 0; i < codes.length; i++){
+
+    codes[i].addEventListener("keyup", function(e){
+
+        // typing forward
+        if(this.value.length === 1 && i < codes.length-1){
+            codes[i+1].select();   // move cursor to next
+        }
+
+        // backspace behavior
+        if(e.key === "Backspace" && i > 0 && this.value === ""){
+            codes[i-1].select();
+        }
+
+    });
+
+}
+
 </script>
 
 </body>
-
 </html>
+
